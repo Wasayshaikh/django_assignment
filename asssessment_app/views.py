@@ -21,9 +21,9 @@ def upload_transaction(request):
     form = upLoadTransactions(request.POST, request.FILES)
     if form.is_valid():
         file = form.cleaned_data['csv_file']
-        valid_extensions = ['.csv', '.xlsx']
+        valid_extensions = ['.csv']
         if not any([file.name.endswith(ext) for ext in valid_extensions]):
-            return Response({"message": "Invalid file type. Only .csv and .xlsx allowed"}, status=400)
+            return Response({"message": "Invalid file type. Only .csv and allowed"}, status=400)
         file = form.cleaned_data['csv_file']
         data = file.read().decode('utf-8')
         csv_reader = csv.DictReader(io.StringIO(data))
@@ -61,9 +61,9 @@ def upload_invoice(request):
     form = uploadInvoice(request.POST, request.FILES)
     if form.is_valid():
         file = form.cleaned_data['invoice_csv']
-        valid_extensions = ['.csv', '.xlsx']
+        valid_extensions = ['.csv']
         if not any([file.name.endswith(ext) for ext in valid_extensions]):
-            return Response({"message": "Invalid file type. Only .csv and .xlsx allowed"}, status=400)
+            return Response({"message": "Invalid file type. Only .csv allowed"}, status=400)
         file = form.cleaned_data['invoice_csv']
         data = file.read().decode('utf-8')
         csv_reader = csv.DictReader(io.StringIO(data))
