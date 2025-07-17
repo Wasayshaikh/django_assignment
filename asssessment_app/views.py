@@ -159,7 +159,7 @@ def get_name_from_description(description):
 
 
 def index(request):
-    return render(request, 'bank_transaction.html') 
+    return render(request, 'index.html') 
 
 def bank_transaction_view(request):
     form = upLoadTransactions()
@@ -167,7 +167,7 @@ def bank_transaction_view(request):
     bankTransactions = BankTransactions.objects.all()
     
     return render(request, 'bank_transaction.html', {'form': form,'invoices':invoices, "logs":bankTransactions}) 
-    
+
 def invoice_view(request):
     form = upLoadTransactions()
     invoices= uploadInvoice()
