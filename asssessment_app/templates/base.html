@@ -1,0 +1,301 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <link rel="stylesheet" href="{% static 'bootstrap/css/sidebars.css' %}">
+    <script src="{% static 'bootstrap/js/sidebars.js' %}"></script>
+    <style>
+        .bd-placeholder-img {
+            font-size: 1.125rem;
+            text-anchor: middle;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            user-select: none
+        }
+
+        @media (min-width: 768px) {
+            .bd-placeholder-img-lg {
+                font-size: 3.5rem
+            }
+        }
+
+        .b-example-divider {
+            width: 100%;
+            height: 3rem;
+            background-color: #0000001a;
+            border: solid rgba(0, 0, 0, .15);
+            border-width: 1px 0;
+            box-shadow: inset 0 .5em 1.5em #0000001a, inset 0 .125em .5em #00000026
+        }
+
+        .b-example-vr {
+            flex-shrink: 0;
+            width: 1.5rem;
+            height: 100vh
+        }
+
+        .bi {
+            vertical-align: -.125em;
+            fill: currentColor
+        }
+
+        .nav-scroller {
+            position: relative;
+            z-index: 2;
+            height: 2.75rem;
+            overflow-y: hidden
+        }
+
+        .nav-scroller .nav {
+            display: flex;
+            flex-wrap: nowrap;
+            padding-bottom: 1rem;
+            margin-top: -1px;
+            overflow-x: auto;
+            text-align: center;
+            white-space: nowrap;
+            -webkit-overflow-scrolling: touch
+        }
+
+        .btn-bd-primary {
+            --bd-violet-bg: #712cf9;
+            --bd-violet-rgb: 112.520718, 44.062154, 249.437846;
+            --bs-btn-font-weight: 600;
+            --bs-btn-color: var(--bs-white);
+            --bs-btn-bg: var(--bd-violet-bg);
+            --bs-btn-border-color: var(--bd-violet-bg);
+            --bs-btn-hover-color: var(--bs-white);
+            --bs-btn-hover-bg: #6528e0;
+            --bs-btn-hover-border-color: #6528e0;
+            --bs-btn-focus-shadow-rgb: var(--bd-violet-rgb);
+            --bs-btn-active-color: var(--bs-btn-hover-color);
+            --bs-btn-active-bg: #5a23c8;
+            --bs-btn-active-border-color: #5a23c8
+        }
+
+        .bd-mode-toggle {
+            z-index: 1500
+        }
+
+        .bd-mode-toggle .bi {
+            width: 1em;
+            height: 1em
+        }
+
+        .bd-mode-toggle .dropdown-menu .active .bi {
+            display: block !important
+        }
+
+        .overlay {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, .4);
+            display: none;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .overlay-content {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+
+        .overlay-active {
+            display: flex;
+        }
+    </style>
+
+</head>
+
+<body>
+    <main class="d-flex flex-nowrap">
+        <div class="overlay" id="overlay">
+            <div class="overlay-content" id="overlayContent">
+                {% block upload_form %}
+                {% endblock %}
+            </div>
+        </div>
+        <div class="container d-flex" style="height: 100vh;">
+            <div class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px; height: 100%;"> <a
+                    href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">
+                    <svg class="bi pe-none me-2" width="40" height="32" aria-hidden="true">
+                        <use xlink:href="#bootstrap"></use>
+                    </svg> <span class="fs-4">Sidebar</span> </a>
+                <hr>
+                <ul class="nav nav-pills flex-column mb-auto">
+                    <li class="nav-item"> <a href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
+                                <use xlink:href="#home"></use>
+                            </svg>
+                            Transactions
+                        </a> </li>
+                    <li> <a href="{% url 'upload_invoice' %}" class="nav-link text-white"> <svg class="bi pe-none me-2"
+                                width="16" height="16" aria-hidden="true">
+                                <use xlink:href="#speedometer2"></use>
+                            </svg>
+                            Upload Invoice
+                        </a> </li>
+                    <li> <a href="{% url 'logs' %}" class="nav-link text-white"> <svg class="bi pe-none me-2" width="16"
+                                height="16" aria-hidden="true">
+                                <use xlink:href="#table"></use>
+                            </svg>
+                            Reconciliation Logs
+                        </a> </li>
+                    <li> <a href="{% url 'match_logs' %}" class="nav-link text-white"> <svg class="bi pe-none me-2"
+                                width="16" height="16" aria-hidden="true">
+                                <use xlink:href="#grid"></use>
+                            </svg>
+                            Match Logs
+                        </a> </li>
+                    <li> <a href="{% url 'unmatched_logs' %}" class="nav-link text-white"> <svg class="bi pe-none me-2"
+                                width="16" height="16" aria-hidden="true">
+                                <use xlink:href="#people-circle"></use>
+                            </svg>
+                            Unmatched Logs
+                        </a> </li>
+                </ul>
+                <hr>
+                <div class="dropdown"> <a href="#"
+                        class="d-flex align-items-center text-white text-decoration-none dropdown-toggle"
+                        data-bs-toggle="dropdown" aria-expanded="false"> <img src="https://github.com/mdo.png" alt=""
+                            width="32" height="32" class="rounded-circle me-2"> <strong>mdo</strong> </a>
+                    <ul class="dropdown-menu dropdown-menu-dark text-small shadow">
+                        <li><a class="dropdown-item" href="#">New project...</a></li>
+                        <li><a class="dropdown-item" href="#">Settings</a></li>
+                        <li><a class="dropdown-item" href="#">Profile</a></li>
+                        <li>
+                            <hr class="dropdown-divider">
+                        </li>
+                        <li><a class="dropdown-item" href="#">Sign out</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="p-4 w-100" style="overflow: scroll;">
+                {% block content %}
+                {% endblock %}
+            </div>
+        </div>
+
+    </main>
+
+    </div>
+</body>
+<script>
+    document.getElementById('overlay-btn').addEventListener('click', () => {
+        document.getElementById('overlay').classList.add('overlay-active')
+    })
+    overlay.addEventListener('click', function (e) {
+        if (!overlayContent.contains(e.target)) {
+            overlay.classList.remove('overlay-active');
+        }
+    });
+
+
+    if (document.getElementById('uploadTransaction')) {
+        document.getElementById('uploadTransaction').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('id_csv_file');
+            if (!fileInput) {
+                console.error("File input not found!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('csv_file', fileInput.files[0]);
+
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+            fetch('http://127.0.0.1:8000/api/bank/upload', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+
+                    // document.getElementById('responseMsg').innerText = data.message;
+
+                    console.log(data)
+                    const transactions = data.transactions;
+                    const tbody = document.getElementById('tableBody');
+                    tbody.innerHTML = '';
+
+                    transactions.forEach((item, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+        <th scope="row">${index + 1}</th>
+        <td>${new Date(item.date).toLocaleString()}</td>
+        <td>${item.description}</td>
+        <td>${item.amount}</td>
+        <td>${item.reference_number}</td>
+        <td>${item.status}</td>
+      `;
+                        tbody.appendChild(row);
+                        document.getElementById('overlay').classList.remove('overlay-active')
+                    });
+                })
+                .catch(error => {
+                    document.getElementById('responseMsg').innerText = 'Failed to load transactions.';
+                    console.error(error);
+                });
+        });
+    }
+
+
+    if (document.getElementById('uploadInvoice')) {
+        document.getElementById('uploadInvoice').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('id_invoice_csv');
+            if (!fileInput) {
+                console.error("File input not found!");
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('invoice_csv', fileInput.files[0]);
+
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]')?.value;
+
+            fetch('http://127.0.0.1:8000/api/bank/upload-invoices', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    const transactions = data.transactions;
+                    const tbody = document.getElementById('tableBody');
+                    tbody.innerHTML = '';
+
+                    transactions.forEach((item, index) => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                        <th scope="row">${item.id}</th>
+                        <td>${item.customer}</td>
+                        <td>${item.amount_due}</td>
+                        <td>${item.status}</td>
+                        `;
+                        tbody.appendChild(row);
+                        document.getElementById('overlay').classList.remove('overlay-active')
+                    });
+                })
+                .catch(error => {
+                    // document.getElementById('responseMsg').innerText = 'Failed to load transactions.';
+                    console.error(error);
+                });
+        });
+    }
+</script>
+
+</html>

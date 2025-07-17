@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Bant Transactions{% endblock %}
+
+{% block content %}
+
+<!-- <div class="my-2 w-100 d-flex justify-content-between">Upload Bank Transactions  <button class="btn btn-primary" id="overlay-btn">Upload</button></div> -->
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Bank Description</th>
+            <th>Amount</th>
+            <th>Invoice ID</th>
+            <th>Matched By</th>
+            <th>Timestamp</th>
+
+        </tr>
+    </thead>
+    <tbody id="tableBody">
+        {% for log in logs %}
+        <tr>
+            <td>{{ log.id }}</td>
+            <td>{{ log.bank_transaction.description }}</td>
+            <td>{{ log.bank_transaction.amount }}</td>
+            <td>
+                {% if log.invoice %}
+                {{ log.invoice.id }}
+                {% else %}
+                Not Matched
+                {% endif %}
+            </td>
+            <td>{{ log.matched_by|default:"-" }}</td>
+            <td>{{ log.timestamp }}</td>
+            <td>
+                {% if log.invoice %}
+                
+                {% else %}
+                <form action="http://127.0.0.1:8000/manual-match" method="post" class="d-flex justify-content-between">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ log.bank_transaction.id }}" name="transactions_id" id="{{ log.bank_transaction.id }}">
+                    <input type="hidden" value="{{ log.id }}" name="log_id" id="{{ log.id }}">
+                    <select class="form-control" name="invoice_id" id="">
+                        <option value="">Select Invoice</option>
+                        {% for unpaid_invoice in unpaid_invoices %}
+                        <option value="{{ unpaid_invoice.id }}">{{ unpaid_invoice.customer}} {{ unpaid_invoice.amount_due }}</option>
+                        {% endfor %}
+                    </select>
+                    <button class="btn btn-primary mx-2">Submit</button>
+                </form>
+                {% endif %}
+
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="4">No invoices available.</td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
