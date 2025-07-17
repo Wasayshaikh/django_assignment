@@ -133,17 +133,18 @@
                     </svg> <span class="fs-4">Sidebar</span> </a>
                 <hr>
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item"> <a href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
-                            <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
-                                <use xlink:href="#home"></use>
-                            </svg>
-                            Transactions
-                        </a> </li>
+
                     <li> <a href="{% url 'upload_invoice' %}" class="nav-link text-white"> <svg class="bi pe-none me-2"
                                 width="16" height="16" aria-hidden="true">
                                 <use xlink:href="#speedometer2"></use>
                             </svg>
                             Upload Invoice
+                        </a> </li>
+                    <li class="nav-item"> <a href="{% url 'home' %}" class="nav-link text-white" aria-current="page">
+                            <svg class="bi pe-none me-2" width="16" height="16" aria-hidden="true">
+                                <use xlink:href="#home"></use>
+                            </svg>
+                            Transactions
                         </a> </li>
                     <li> <a href="{% url 'logs' %}" class="nav-link text-white"> <svg class="bi pe-none me-2" width="16"
                                 height="16" aria-hidden="true">
@@ -233,13 +234,13 @@
                     transactions.forEach((item, index) => {
                         const row = document.createElement('tr');
                         row.innerHTML = `
-        <th scope="row">${index + 1}</th>
-        <td>${new Date(item.date).toLocaleString()}</td>
-        <td>${item.description}</td>
-        <td>${item.amount}</td>
-        <td>${item.reference_number}</td>
-        <td>${item.status}</td>
-      `;
+                        <th scope="row">${index + 1}</th>
+                        <td>${new Date(item.date).toLocaleString()}</td>
+                        <td>${item.description}</td>
+                        <td>${item.amount}</td>
+                        <td>${item.reference_number}</td>
+                        <td>${item.status}</td>
+                    `   ;
                         tbody.appendChild(row);
                         document.getElementById('overlay').classList.remove('overlay-active')
                     });
